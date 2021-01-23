@@ -155,3 +155,60 @@ function move() {
 let interval = setInterval(() => {
     move();
 }, 300)
+
+let flag = true;
+
+window.addEventListener('keydown', function (e) {
+    let coordinate1 = [figureBody[0].getAttribute('posX'), figureBody[0].getAttribute('posY')];
+    let coordinate2 = [figureBody[1].getAttribute('posX'), figureBody[1].getAttribute('posY')];
+    let coordinate3 = [figureBody[2].getAttribute('posX'), figureBody[2].getAttribute('posY')];
+    let coordinate4 = [figureBody[3].getAttribute('posX'), figureBody[3].getAttribute('posY')];
+
+    function getNewState(a) {
+        flag = true;
+
+        //plus sign before coordinate is for interpreting as a number addition, not a string concatenation
+        let figureNew = [
+            document.querySelector(`[posX = "${+coordinate1[0] + a}"][posY = "${coordinate1[1]}"]`),
+            document.querySelector(`[posX = "${+coordinate2[0] + a}"][posY = "${coordinate2[1]}"]`),
+            document.querySelector(`[posX = "${+coordinate3[0] + a}"][posY = "${coordinate3[1]}"]`),
+            document.querySelector(`[posX = "${+coordinate4[0] + a}"][posY = "${coordinate4[1]}"]`)
+        ];
+
+        //nothing happens on left or right key pressed if there is already a figure there or a border
+        for (let i = 0; i < figureNew.length; i++) {
+            if (!figureNew[i] || figureNew[i].classList.contains('set')) {
+                flag = false;
+            }
+        }
+
+        if (flag) {
+            //remove class to decolor cells
+            for (let i = 0; i < figureBody.length; i++) {
+                figureBody[i].classList.remove('figure');
+            }
+
+            //move the coordinates of a figure
+            figureBody = figureNew;
+
+            //color cells of the figure again
+            for (let i = 0; i < figureBody.length; i++) {
+                figureBody[i].classList.add('figure');
+            }
+        }
+    }
+
+    //left arrow
+    if (e.keyCode == 37) {
+        getNewState(-1);
+    }
+    //right arrow
+    else if (e.keyCode == 39) {
+        getNewState(1);
+    }
+    //down arrow
+    else if (e.keyCode == 40) {
+        //move faster
+        move();
+    }
+})
