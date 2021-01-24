@@ -265,9 +265,9 @@ let mainArr = [
 
     //T-shape
     [
-        [0, 1],
+        [1, 0],
+        [2, 0],
         [1, 1],
-        [-1, 1],
 
         //90 deg rotation
         [
@@ -331,6 +331,8 @@ function create() {
 
 create();
 
+
+
 function move() {
     let moveFlag = true;
     let coordinates = [
@@ -366,10 +368,52 @@ function move() {
             figureBody[i].classList.add('figure');
         }
     } else {
+
         for (let i = 0; i < figureBody.length; i++) {
             figureBody[i].classList.remove('figure');
             figureBody[i].classList.add('set');
         }
+
+        //check if the row below is filled
+        for (let i = 1; i < 15; i++) {
+            let count = 0;
+            for (let j = 1; j < 11; j++) {
+                if (document.querySelector(`[posX="${j}"][posY="${i}"]`).classList.contains('set')) {
+                    count++;
+                    if (count == 10) {
+                        for (let k = 1; k < 11; k++) {
+                            document.querySelector(`[posX="${k}"][posY="${i}"]`).classList.remove('set');
+                        }
+                        let setElems = document.querySelectorAll('.set');
+                        let newSet = [];
+                        for (let s = 0; s < setElems.length; s++) {
+                            let setCoordinates = [setElems[s].getAttribute('posX'), setElems[s].getAttribute('posY')];
+                            // only rows that are upper than filled row should be moved down
+                            if (setCoordinates[1] > i) {
+                                setElems[s].classList.remove('set');
+                                newSet.push(document.querySelector(`[posX="${setCoordinates[0]}"][posY="${setCoordinates[1]-1}"]`));
+                            }
+                        }
+                        //color new positions of rows
+                        for(let a = 0; a<newSet.length;a++){
+                            newSet[a].classList.add('set');
+                        }
+                        i--;
+                    }
+                }
+            }
+        }
+
+        //finish
+        for(let n = 1; n<11; n++){
+            //if there is a figure outside the visible field
+            if(document.querySelector(`[posX="${n}"][posY="15"]`).classList.contains('set')){
+                clearInterval(interval);
+                alert("The game is over");
+                break;
+            }
+        }
+
         create();
     }
 }
