@@ -24,67 +24,288 @@ for (let y = 18; y > 0; y--) {
 
 // initial coordinates of first (lower left) square of the figure
 // next coordinates are counted in left to right, low to up direction
-let x = 5, y = 15;
+let x = 5,
+    y = 15;
 let mainArr = [
     //line
     [
         [0, 1],
         [0, 2],
-        [0, 3]
+        [0, 3],
+
+        //90 deg rotation
+        [
+            [-1, 1],
+            [0, 0],
+            [1, -1],
+            [2, -2]
+        ],
+
+        //180 deg rotation
+        [
+            [1, -1],
+            [0, 0],
+            [-1, 1],
+            [-2, 2]
+        ],
+
+        //270 deg rotation
+        [
+            [-1, 1],
+            [0, 0],
+            [1, -1],
+            [2, -2]
+        ],
+
+        //360 deg rotation
+        [
+            [1, -1],
+            [0, 0],
+            [-1, 1],
+            [-2, 2]
+        ]
+
     ],
 
     //square
     [
         [1, 0],
         [0, 1],
-        [1, 1]
+        [1, 1],
+
+        //90 deg rotation
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0]
+        ],
+
+        //180 deg rotation
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0]
+        ],
+
+        //270 deg rotation
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0]
+        ],
+
+        //360 deg rotation
+        [
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0]
+        ]
+
     ],
 
     //L-shape
     [
         [1, 0],
         [0, 1],
-        [0, 2]
+        [0, 2],
+
+        //90 deg rotation
+        [
+            [0, 0],
+            [-1, 1],
+            [1, 0],
+            [2, -1]
+        ],
+
+        //180 deg rotation
+        [
+            [1, -1],
+            [1, -1],
+            [-1, 0],
+            [-1, 0]
+        ],
+
+        //270 deg rotation
+        [
+            [-1, 0],
+            [0, -1],
+            [2, -2],
+            [1, -1]
+        ],
+
+        //360 deg rotation
+        [
+            [0, -1],
+            [0, -1],
+            [-2, 0],
+            [-2, 0]
+        ]
     ],
 
     //mirrored L-shape
     [
         [1, 0],
         [1, 1],
-        [1, 2]
+        [1, 2],
+
+        //90 deg rotation
+        [
+            [0, 0],
+            [0, 0],
+            [1, -1],
+            [-1, -1]
+        ],
+
+        //180 deg rotation
+        [
+            [0, -1],
+            [-1, 0],
+            [-2, 1],
+            [1, 0]
+        ],
+
+        //270 deg rotation
+        [
+            [2, 0],
+            [0, 0],
+            [1, -1],
+            [1, -1]
+        ],
+
+        //360 deg rotation
+        [
+            [-2, 0],
+            [1, -1],
+            [0, 0],
+            [-1, 1]
+        ]
     ],
 
     //Z-shape
     [
         [1, 0],
         [-1, 1],
-        [0, 1]
+        [0, 1],
+
+        //90 deg rotation
+        [
+            [0, -1],
+            [-1, 0],
+            [2, -1],
+            [1, 0]
+        ],
+
+        //180 deg rotation
+        [
+            [0, 0],
+            [1, -1],
+            [-2, 0],
+            [-1, -1]
+        ],
+
+        //270 deg rotation
+        [
+            [0, -1],
+            [-1, 0],
+            [2, -1],
+            [1, 0]
+        ],
+
+        //360 deg rotation
+        [
+            [0, 0],
+            [1, -1],
+            [-2, 0],
+            [-1, -1]
+        ]
     ],
 
     //mirrored Z-shape
     [
         [1, 0],
         [1, 1],
-        [2, 1]
+        [2, 1],
+
+        //90 deg rotation
+        [
+            [2, -1],
+            [0, 0],
+            [1, -1],
+            [-1, 0]
+        ],
+
+        //180 deg rotation
+        [
+            [-2, 0],
+            [0, -1],
+            [-1, 0],
+            [1, -1]
+        ],
+
+        //270 deg rotation
+        [
+            [2, -1],
+            [0, 0],
+            [1, -1],
+            [-1, 0]
+        ],
+
+        //360 deg rotation
+        [
+            [-2, 0],
+            [0, -1],
+            [-1, 0],
+            [1, -1]
+        ]
     ],
 
     //T-shape
     [
         [0, 1],
         [1, 1],
-        [-1, 1]
-    ],
+        [-1, 1],
 
-    //T-shape (upside down)
-    [
-        [1, 0],
-        [2, 0],
-        [1, 1]
+        //90 deg rotation
+        [
+            [1, -1],
+            [0, 0],
+            [0, 0],
+            [0, 0]
+        ],
+
+        //180 deg rotation
+        [
+            [0, 0],
+            [-1, 0],
+            [-1, 0],
+            [1, -1]
+        ],
+
+        //270 deg rotation
+        [
+            [1, -1],
+            [1, -1],
+            [1, -1],
+            [0, 0]
+        ],
+
+        //360 deg rotation
+        [
+            [-2, 0],
+            [0, -1],
+            [0, -1],
+            [-1, -1]
+        ]
     ]
 ]
 
 let currentFigure = 0;
 let figureBody = 0;
+let rotate = 1;
 
 function create() {
     //choose random figure from array
@@ -92,6 +313,7 @@ function create() {
         return Math.round(Math.random() * (mainArr.length - 1))
     }
 
+    rotate = 1;
     currentFigure = getRandom();
 
     //coordinates of each cell of a figure
@@ -210,5 +432,45 @@ window.addEventListener('keydown', function (e) {
     else if (e.keyCode == 40) {
         //move faster
         move();
+    }
+    //up arrow
+    else if (e.keyCode == 38) {
+        flag = true;
+
+        //plus sign before coordinate is for interpreting as a number addition, not a string concatenation
+        let figureNew = [
+            document.querySelector(`[posX = "${+coordinate1[0] + mainArr[currentFigure][rotate + 2][0][0]}"][posY = "${coordinate1[1] + mainArr[currentFigure][rotate + 2][0][1]}"]`),
+            document.querySelector(`[posX = "${+coordinate2[0] + mainArr[currentFigure][rotate + 2][1][0]}"][posY = "${coordinate2[1] + mainArr[currentFigure][rotate + 2][1][1]}"]`),
+            document.querySelector(`[posX = "${+coordinate3[0] + mainArr[currentFigure][rotate + 2][2][0]}"][posY = "${coordinate3[1] + mainArr[currentFigure][rotate + 2][2][1]}"]`),
+            document.querySelector(`[posX = "${+coordinate4[0] + mainArr[currentFigure][rotate + 2][3][0]}"][posY = "${coordinate4[1] + mainArr[currentFigure][rotate + 2][3][1]}"]`)
+        ];
+
+        //nothing happens on left or right key pressed if there is already a figure there or a border
+        for (let i = 0; i < figureNew.length; i++) {
+            if (!figureNew[i] || figureNew[i].classList.contains('set')) {
+                flag = false;
+            }
+        }
+
+        if (flag) {
+            //remove class to decolor cells
+            for (let i = 0; i < figureBody.length; i++) {
+                figureBody[i].classList.remove('figure');
+            }
+
+            //move the coordinates of a figure
+            figureBody = figureNew;
+
+            //color cells of the figure again
+            for (let i = 0; i < figureBody.length; i++) {
+                figureBody[i].classList.add('figure');
+            }
+        }
+
+        if (rotate < 4) {
+            rotate++;
+        } else {
+            rotate = 1;
+        }
     }
 })
