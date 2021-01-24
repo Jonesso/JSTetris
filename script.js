@@ -435,25 +435,15 @@ window.addEventListener('keydown', function (e) {
     }
     //up arrow
     else if (e.keyCode == 38) {
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
         flag = true;
 
         //plus sign before coordinate is for interpreting as a number addition, not a string concatenation
         let figureNew = [
-<<<<<<< Updated upstream
-            document.querySelector(`[posX = "${+coordinate1[0] + mainArr[currentFigure][rotate + 2][0][0]}"][posY = "${coordinate1[1] + mainArr[currentFigure][rotate + 2][0][1]}"]`),
-            document.querySelector(`[posX = "${+coordinate2[0] + mainArr[currentFigure][rotate + 2][1][0]}"][posY = "${coordinate2[1] + mainArr[currentFigure][rotate + 2][1][1]}"]`),
-            document.querySelector(`[posX = "${+coordinate3[0] + mainArr[currentFigure][rotate + 2][2][0]}"][posY = "${coordinate3[1] + mainArr[currentFigure][rotate + 2][2][1]}"]`),
-            document.querySelector(`[posX = "${+coordinate4[0] + mainArr[currentFigure][rotate + 2][3][0]}"][posY = "${coordinate4[1] + mainArr[currentFigure][rotate + 2][3][1]}"]`)
-=======
             document.querySelector(`[posX = "${+coordinate1[0] + mainArr[currentFigure][rotate + 2][0][0]}"][posY = "${+coordinate1[1] + mainArr[currentFigure][rotate + 2][0][1]}"]`),
             document.querySelector(`[posX = "${+coordinate2[0] + mainArr[currentFigure][rotate + 2][1][0]}"][posY = "${+coordinate2[1] + mainArr[currentFigure][rotate + 2][1][1]}"]`),
             document.querySelector(`[posX = "${+coordinate3[0] + mainArr[currentFigure][rotate + 2][2][0]}"][posY = "${+coordinate3[1] + mainArr[currentFigure][rotate + 2][2][1]}"]`),
             document.querySelector(`[posX = "${+coordinate4[0] + mainArr[currentFigure][rotate + 2][3][0]}"][posY = "${+coordinate4[1] + mainArr[currentFigure][rotate + 2][3][1]}"]`)
->>>>>>> Stashed changes
         ];
 
         //nothing happens on left or right key pressed if there is already a figure there or a border
