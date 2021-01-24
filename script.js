@@ -331,8 +331,12 @@ function create() {
 
 create();
 
+//score
+let score = 0;
+let input = document.getElementsByTagName('input')[0];
+input.value = `Your score: ${score}`;
 
-
+//main logic
 function move() {
     let moveFlag = true;
     let coordinates = [
@@ -381,9 +385,14 @@ function move() {
                 if (document.querySelector(`[posX="${j}"][posY="${i}"]`).classList.contains('set')) {
                     count++;
                     if (count == 10) {
+
+                        score+=10;
+                        input.value = `Your score: ${score}`;
+
                         for (let k = 1; k < 11; k++) {
                             document.querySelector(`[posX="${k}"][posY="${i}"]`).classList.remove('set');
                         }
+
                         let setElems = document.querySelectorAll('.set');
                         let newSet = [];
                         for (let s = 0; s < setElems.length; s++) {
@@ -409,7 +418,7 @@ function move() {
             //if there is a figure outside the visible field
             if(document.querySelector(`[posX="${n}"][posY="15"]`).classList.contains('set')){
                 clearInterval(interval);
-                alert("The game is over");
+                alert(`The game is over. Your score is ${score}`);
                 break;
             }
         }
